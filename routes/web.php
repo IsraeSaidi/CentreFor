@@ -107,13 +107,14 @@ Route::middleware(['auth', 'role:secretaire'])->group(function () {
 });
 
 
-
+Route::middleware(['auth', 'role:formateur'])->group(function () {
 Route::get('ajouterC', [UtilisateurController::class,'ajouterC'])->name('ajouterC');
 Route::post('uploadFile', [UtilisateurController::class,'storeC'])->name('uploadFile');
 Route::get('getCours', [UtilisateurController::class,'showC'])->name('getCours');
 Route::get('telecharger/{file}', [UtilisateurController::class,'telechargerC'])->name('telecharger');
 Route::get('etudiants', [UtilisateurController::class,'getEtudiant'])->name('etudiants');
-
+Route::get('supprimerC/{cours}', [UtilisateurController::class,'supprimerCours'])->name('supprimerC');
+});
 
 Route::get('/classe', function () {
     $session = session::find(10);
@@ -126,4 +127,5 @@ Route::get('/classe', function () {
     foreach ($formation->session as $session) {
         echo $session->id . "<br>";
     }
+
 });

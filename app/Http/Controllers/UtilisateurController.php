@@ -44,8 +44,8 @@ class UtilisateurController extends Controller
         $formateur = Utilisateur::where('id',$id_formateur)->get();
         $formations = Session::where('id_formateur',$id_formateur)->get();
         $data = Cours::where('id_formateur',$id_formateur)->get();
-        
-        return view('Formateur.ajouterCours',['formateurs' => $formateur, 'formations' => $formations,'data'=>$data]);
+        $file = Cours::all();
+        return view('Formateur.ajouterCours',['formateurs' => $formateur, 'formations' => $formations,'data'=>$data,'file'=>$file]);
     }
     
 
@@ -91,7 +91,15 @@ class UtilisateurController extends Controller
         }
 
         return view('Formateur.etudiants',compact('listFormationEtudiants')); 
+    }
+
+    public function supprimerCours(Cours $cours){
+        $coursAsup = Cours::find($cours->id);
+        $coursAsup->delete();
+        return redirect()->route('ajouterC');
+    }
         
+}
             
            
             
@@ -111,10 +119,4 @@ class UtilisateurController extends Controller
             
            
 
-    }
-
-
-    
-
-    
-}
+ 
